@@ -34,10 +34,19 @@
     <script type="text/javascript">
     var socket = io();
     $(()=>{
-      console.log("laoded.");
       getMessages();
       $("#send").click(function () {
-        postMessages({name:$("#name").val(),message:$("#message").val()})
+        var _name = $("#name").val();
+        var _message = $("#message").val();
+        if ( _name !== '' && _message !== '')
+        {
+          postMessages({name:_name,message:_message})
+          $("#name").val('');
+        }
+        else
+        {
+          alert("fill some data.");
+        }
 
         // addMessages({name:"shahjahan",message:"Hello from me."});
       })
@@ -58,7 +67,8 @@
 
     function postMessages(message) {
       // console.log("In post.");
-      jQuery.post('http://localhost:8081/messages',message)
+      jQuery.post('http://localhost:8081/messages',message,function () {
+      })
     }
     </script>
 
